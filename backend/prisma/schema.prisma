@@ -9,3 +9,12 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Airport {
+  name String
+  iata String @id
+  city String
+  country String
+  longitude Float
+  latitude Float
+}

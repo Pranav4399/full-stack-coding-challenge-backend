@@ -2,14 +2,15 @@ import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 
 import Layout from "../../components/layout";
-import { findAirportByIata } from "../../models/airport";
+import useApiData from "../../hooks/use-api-data";
 import Airport from "../../types/airport";
 
 interface Props {
-  airport: Airport | undefined;
+  iata: string;
 }
 
-const Page: NextPage<Props> = ({ airport }) => {
+const Page: NextPage<Props> = ({ iata }) => {
+  const airport = useApiData<Airport[]>(`/api/airport?iata=${iata}`, []);
   return (
     <Layout>
       <h1 className="mb-4 text-2xl font-bold">Airport: {airport.name}</h1>
@@ -28,11 +29,10 @@ const Page: NextPage<Props> = ({ airport }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { iata } = params;
-  const airport = await findAirportByIata(iata.toString());
 
   return {
     props: {
-      airport,
+      iata,
     },
   };
 };

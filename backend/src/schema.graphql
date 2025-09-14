@@ -2,16 +2,29 @@ type Query {
   "A simple query that returns a welcome message"
   hello: String!
 
-  getSeaport(id: Int!): Seaport!
+  getSeaport(id: Int!): Seaport
+
+  getAirports(search: String!, limit: Int = 20): [Airport!]
+
+  getAirport(iata: String!): Airport!
 }
 
 type Seaport {
   id: Int!
   name: String!
-  location: Location!
+  location: Location
 }
 
 type Location {
   city: String!
   countryAlpha2: String!
+}
+
+type Airport {
+  name: String!
+  iata: String!
+  city: String!
+  country: String!
+  longitude: Float!
+  latitude: Float!
 }

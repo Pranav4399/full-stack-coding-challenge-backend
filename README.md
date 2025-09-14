@@ -1,55 +1,41 @@
-# Backend Coding Challenge
+Tilla Coding Challenge
 
-Our main goal for this exercise is to get an idea of how you are to work with and how you approach your engineering work. That insight is more important than your actual working solution at the end of this exercise.
+Hello, Thanks for inviting me to the second round of interview process at Tilla. Please find attached the loom link for recording below -
 
-Please record your screen and talk us through the coding exercise as you work through it. Don't hesitate to think out loud—that's the interesting part!
+https://www.loom.com/share/d4ca54d80db04320856056974691be1c?sid=353315b8-abeb-49cb-b1ba-a2c979afa77d
 
-We expect this to take around an hour.
+I have completed the tasks mentioned in the original README. In addition, I introduced a small optimization — a limit parameter to the API call — allowing users to control the number of responses returned. This serves as a first step towards pagination. The recording of the original tasks along with this feature runs until 1:04:40.
 
-## Brief
+Afterwards, I worked on an additional feature: converting the GET individual airport data API into a GraphQL endpoint (though this was not explicitly required in the README). I had to leave this part unfinished due to an error and the session time reaching close to 1:30:00. This section of the recording starts at 1:04:45.
 
-You'll be building an endpoint to look up airport information. In its current state, we render a list of all airports (around 6000) on the frontend, but we don't want to keep this data in the frontend or load them all at once.
+Upon reviewing later, I discovered the issue was caused by the lack of normalization of IATA values — the backend expected uppercase values while the frontend was sending lowercase.
 
-## What we'd like you to do:
+Questions
 
-- **Fix the Bug**: There is a Seaports resolver added to the backend, but in some edge-cases when searching for specific ports by specifying their IDs (e.g., 1, 2, 3), it throws an error and is unable to resolve anything. Investigate the issue and add a hotfix.
-- **Optimize airports data**: Please move this data into a database scheme on the backend.
-- **Add an endpoint**: Write an endpoint that allows fetching data from the frontend. Your endpoint should allow user to look up airports by searching for airports by name, IATA, city, or country.
+1. What are some edge cases you would take care of before shipping this to production?
 
-The designer gave you this mock-up as a reference. It's fine if the design doesn't look like this, since this exercise focuses on the back-end, but it gives you an idea of where this would go.
+    Few of the edge cases that we need to consider before pushing it to production are:
 
-![image](https://user-images.githubusercontent.com/144075/144594282-68de44cd-bef2-4d9d-8c5d-398862cbc964.png)
+    a. Verify if iata values are unique across DB since duplicate iata values might cause errors
+    b. Input sanitization in search bar
+    c. Graceful handling of API failures in the frontend using Error boundary
+    d. Handling of large datasets and latency of API calls.
 
-## Assumptions
+2. How would you scale this to handle high amounts of traffic?
 
-- Tilla uses [NestJS](https://nestjs.com), [Prisma](https://www.prisma.io) with PostgreSQL and TypeScript. It'd be cool if you use that same tech stack for this exercise.
-- The database is currently a JSON file with airport data.
-- The IATA code is a unique identifier for an airport.
-- While we care more about your thought process than your outcome, we're still interested in how you write code. Don't cut corners there, and write the code as if you'd write a real-world, production-quality product.
+    a. Caching client side using inbuilt Apollo client functionality or server side caching using Redis
+    b. Adding indexes in prisma schema for faster lookups
+    c. Rate limiting APIs using inbuilt NestJS middleware
+    d. Observability and logs for better understanding of points of failures
+    e. Optimizing GraphQL responses across application to include only necessary data to reduce the size of the payload
+    f. CDNs for faster delivery of data to nearby users
 
-## Extra questions
 
-We'd love to hear your thoughts on some of these questions. Please don't spend more than a minute or two on each question.
 
-- What are some edge cases you would take care of before shipping this to production?
-- How would you scale this to handle high amounts of traffic?
-- What's important for you to work well in a fully remote team?
+3. What's important for you to work well in a fully remote team?
 
-## Deliverables
+    Personally, the two things I value the most in a fully remote team is clear communication about work/requierements through written documentation and a defined set of short term and long term goals to have a shared vision of where the product is headed. Along with this, sprint cycles and time blocks for certain specific activities like code reviews will be of great help as well.
 
-- Invite [@umartayyab](https://github.com/umartayyab), [@Calvin-Tilla](https://github.com/Calvin-Tilla), [@akshatamohanty](https://github.com/akshatamohanty), and [@AleSua93](https://github.com/AleSua93) to a GitHub repo with your completed project
-- A video of your screen recording (unlisted YouTube video, Loom, … anything works)
-- Answers to the questions above can be either in the video or written down in the README of your repo
 
-## Getting Started
+Thank you. Looking forward to hearing from you.
 
-The app is designed to work out of the box.
-
-```shell
-yarn install
-yarn start
-```
-
-The app should be available via [http://localhost:3000](http://localhost:3000).
-
-Good luck and talk soon!

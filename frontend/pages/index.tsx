@@ -4,14 +4,27 @@ import Link from "next/link";
 import Layout from "../components/layout";
 import useApiData from "../hooks/use-api-data";
 import Airport from "../types/airport";
+import { useEffect, useState } from "react";
 
 const Page: NextPage = () => {
-  const airports = useApiData<Airport[]>("/api/airports", []);
+  const [deboundedSearch, setDebouncedSearch] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [limit, setLimit] = useState(20)
+  const airports = useApiData<Airport[]>(`/api/airports?search=${deboundedSearch}&limit=${limit}`, []) ?? [];
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(searchTerm), 500);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm])
 
   return (
     <Layout>
       <h1 className="text-2xl font-bold">Code Challenge: Airports</h1>
 
+      <input style={{width: "100%", margin: "10px 0", border: "1px solid Gray", borderRadius: "4px"}} placeholder="Search by iata, name, city, country" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+
+      <input type="number" style={{width: "100%", margin: "10px 0", border: "1px solid Gray", borderRadius: "4px"}} placeholder="Set Limit" value={limit} onChange={(e) => setLimit(e.target.valueAsNumber)} />
       <h2 className="mt-10 text-xl font-semibold">All Airports</h2>
 
       <div>
