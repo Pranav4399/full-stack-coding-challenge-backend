@@ -4,11 +4,11 @@ Hello, Thanks for inviting me to the second round of interview process at Tilla.
 
 https://www.loom.com/share/d4ca54d80db04320856056974691be1c?sid=353315b8-abeb-49cb-b1ba-a2c979afa77d
 
-I have completed the tasks mentioned in the original README. In addition, I introduced a small optimization — a limit parameter to the API call — allowing users to control the number of responses returned. This serves as a first step towards pagination. The recording of the original tasks along with this feature runs until 1:04:40.
+I have completed the tasks mentioned in the original README. In addition, I introduced a small optimization, a limit parameter to the API call allowing users to control the number of responses returned. This serves as a first step towards pagination. The recording of the original tasks along with this feature runs until 1:04:40.
 
 Afterwards, I worked on an additional feature: converting the GET individual airport data API into a GraphQL endpoint (though this was not explicitly required in the README). I had to leave this part unfinished due to an error and the session time reaching close to 1:30:00. This section of the recording starts at 1:04:45.
 
-Upon reviewing later, I discovered the issue was caused by the lack of normalization of IATA values — the backend expected uppercase values while the frontend was sending lowercase.
+Upon reviewing later, I discovered the issue was caused by the lack of normalization of IATA values, the backend expected uppercase values while the frontend was sending lowercase.
 
 Questions
 
